@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choose Algorithm | RetailIQ</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="workflow-page">
+  <main class="workflow-panel">
+    <h1>Choose Data Mining Algorithm</h1>
+    <p class="subtitle">Dataset: <strong>{{ dataset_name }}</strong> &nbsp; | &nbsp; Instances: {{ row_count }}</p>
+    <div class="dataset-info">
+      <p><strong>Analysis target:</strong> Sales value (Quantity × Unit Price)</p>
+      <p><strong>Attributes:</strong> {{ columns | join(', ') }}</p>
+    </div>
+    <form method="POST" action="{{ url_for('choose_algorithm') }}">
+      {% set descriptions = {
+        'decision_tree': 'Predict high or low sales using decision-tree rules.',
+        'knn': 'Classify sales records using similar records.',
+        'naive_bayes': 'Classify sales categories using probability.',
+        'random_forest': 'Predict sales categories using multiple decision trees.',
+        'kmeans': 'Group customers by spend, quantity, and orders.',
+        'apriori': 'Find products frequently purchased together.'
+      } %}
+      <div class="algorithm-list">
+        {% for key, label in algorithms.items() %}
+        <label class="algorithm-option">
+          <input type="radio" name="algorithm" value="{{ key }}" {% if loop.first %}checked{% endif %}>
+          <span class="option-copy"><strong>{{ label }}</strong><small>{{ descriptions[key] }}</small></span>
+        </label>
+        {% endfor %}
+      </div>
+      <button class="primary-button run-button" type="submit">Run Algorithm</button>
+    </form>
+    <a class="back-link" href="{{ url_for('home') }}">← Back to Home</a>
+  </main>
+</body>
+</html>

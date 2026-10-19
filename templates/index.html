@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RetailIQ | Retail Sales Analysis</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="upload-page">
+  <main class="upload-panel">
+    <div class="brand-mark">R</div>
+    <h1>Retail Sales Analysis</h1>
+    <p class="subtitle">Using Data Mining Algorithms</p>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}{% for category, message in messages %}
+        <div class="alert {{ category }}">{{ message }}</div>
+      {% endfor %}{% endif %}
+    {% endwith %}
+    <form class="upload-box" action="{{ url_for('home') }}" method="POST" enctype="multipart/form-data">
+      <div class="upload-icon">↑</div>
+      <h2>Upload Your Dataset</h2>
+      <p>Select your <strong>retail sales CSV</strong> file</p>
+      <input type="file" name="file" accept=".csv" required>
+      <button type="submit" class="primary-button">Upload Dataset</button>
+    </form>
+    <p class="supported-format">Supported format: CSV</p>
+  </main>
+</body>
+</html>
