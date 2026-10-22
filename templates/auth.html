@@ -1,0 +1,6 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{{ 'Register' if mode == 'register' else 'Login' }} | RetailIQ</title><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<body class="upload-page"><main class="upload-panel auth-panel"><div class="brand-mark">R</div><h1>RetailIQ</h1><p class="subtitle">{{ 'Create your account' if mode == 'register' else 'Sign in to your retail analytics workspace' }}</p>
+{% with messages = get_flashed_messages(with_categories=true) %}{% for category, message in messages %}<div class="alert {{ category }}">{{ message }}</div>{% endfor %}{% endwith %}
+<form method="post" class="form-stack"><label>Username<input name="username" minlength="3" required autocomplete="username"></label><label>Password<input type="password" name="password" minlength="8" required autocomplete="{{ 'new-password' if mode == 'register' else 'current-password' }}"></label><button class="primary-button" type="submit">{{ 'Create Account' if mode == 'register' else 'Login' }}</button></form>
+<p class="auth-switch">{% if mode == 'register' %}Already registered? <a href="{{ url_for('login') }}">Login</a>{% else %}New to RetailIQ? <a href="{{ url_for('register') }}">Create an account</a>{% endif %}</p></main></body></html>
